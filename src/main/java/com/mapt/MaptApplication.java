@@ -2,6 +2,7 @@ package com.mapt;
 
 import org.jdbi.v3.core.Jdbi;
 
+import com.mapt.db.UserDAO;
 import com.mapt.resources.HelloResource;
 import io.dropwizard.Application;
 import io.dropwizard.bundles.assets.ConfiguredAssetsBundle;
@@ -32,10 +33,12 @@ public class MaptApplication extends Application<MaptConfiguration> {
     	final JdbiFactory factory = new JdbiFactory();
     	final Jdbi jdbi = factory.build(environment, configuration.getDataSourceFactory(), "postgresql");
     	
+    	 final UserDAO userDAO = jdbi.onDemand(UserDAO.class);
+    	
         final HelloResource resource = new HelloResource(
                 configuration.getTemplate(),
                 configuration.getDefaultName(),
-                jdbi
+                userDAO
         );
         environment.jersey().setUrlPattern("/api/*");
         environment.jersey().register(resource);
