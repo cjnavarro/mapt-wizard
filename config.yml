@@ -14,13 +14,13 @@ database:
   driverClass: org.postgresql.Driver
 
   # the username
-  user: pg-user
+  user: postgres
 
   # the password
-  password: iAMs00perSecrEET
+  password: boxerBoi
 
   # the JDBC URL
-  url: jdbc:postgresql://db.example.com/db-prod
+  url: jdbc:postgresql://mapt-db.cirl9lc3y5ph.us-east-1.rds.amazonaws.com
 
   # any properties specific to your JDBC driver:
   properties:
