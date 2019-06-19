@@ -1,8 +1,11 @@
 package com.mapt;
 
+import org.jdbi.v3.core.Jdbi;
+
 import com.mapt.resources.HelloResource;
 import io.dropwizard.Application;
 import io.dropwizard.bundles.assets.ConfiguredAssetsBundle;
+import io.dropwizard.jdbi3.JdbiFactory;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 
@@ -26,9 +29,13 @@ public class MaptApplication extends Application<MaptConfiguration> {
     public void run(final MaptConfiguration configuration,
                     final Environment environment) {
 
+    	final JdbiFactory factory = new JdbiFactory();
+    	final Jdbi jdbi = factory.build(environment, configuration.getDataSourceFactory(), "postgresql");
+    	
         final HelloResource resource = new HelloResource(
                 configuration.getTemplate(),
-                configuration.getDefaultName()
+                configuration.getDefaultName(),
+                jdbi
         );
         environment.jersey().setUrlPattern("/api/*");
         environment.jersey().register(resource);

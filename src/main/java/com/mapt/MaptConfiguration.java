@@ -3,6 +3,8 @@ package com.mapt;
 import io.dropwizard.Configuration;
 import io.dropwizard.bundles.assets.AssetsBundleConfiguration;
 import io.dropwizard.bundles.assets.AssetsConfiguration;
+import io.dropwizard.db.DataSourceFactory;
+import io.dropwizard.db.DatabaseConfiguration;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -22,6 +24,10 @@ public class MaptConfiguration extends Configuration implements AssetsBundleConf
     @NotNull
     @JsonProperty
     private final AssetsConfiguration assets = AssetsConfiguration.builder().build();
+
+    @Valid
+    @NotNull
+    private DataSourceFactory database = new DataSourceFactory();
 
     @JsonProperty
     public String getTemplate() {
@@ -44,5 +50,17 @@ public class MaptConfiguration extends Configuration implements AssetsBundleConf
     }
     
     @Override
-    public AssetsConfiguration getAssetsConfiguration() { return assets; }
+    public AssetsConfiguration getAssetsConfiguration() {
+    	return assets;
+    }
+    
+    @JsonProperty("database")
+    public void setDataSourceFactory(DataSourceFactory factory) {
+        this.database = factory;
+    }
+
+    @JsonProperty("database")
+    public DataSourceFactory getDataSourceFactory() {
+        return database;
+    }
 }
