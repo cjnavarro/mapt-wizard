@@ -2,3 +2,10 @@ logging:
   level: INFO
   loggers:
     com.mapt: DEBUG
+template: Hello, %s!
+defaultName: Stranger
+assets:
+  mappings:
+    /assets: /
+  overrides:
+    /: /mapt/build

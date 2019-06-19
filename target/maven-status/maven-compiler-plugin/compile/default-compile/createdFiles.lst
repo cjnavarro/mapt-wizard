@@ -1,2 +1,4 @@
-com/mapt/maptConfiguration.class
-com/mapt/maptApplication.class
+com/mapt/MaptApplication.class
+com/mapt/api/Hello.class
+com/mapt/resources/HelloResource.class
+com/mapt/MaptConfiguration.class
