@@ -1,4 +1,7 @@
 com/mapt/MaptApplication.class
+com/mapt/core/User.class
+com/mapt/MaptConfiguration.class
 com/mapt/api/Hello.class
 com/mapt/resources/HelloResource.class
-com/mapt/MaptConfiguration.class
+com/mapt/db/UserDAO.class
+com/mapt/core/mapper/UserMapper.class
