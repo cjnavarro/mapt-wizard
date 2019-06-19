@@ -1,7 +1,6 @@
 package com.mapt.resources;
 
 import com.mapt.api.Hello;
-import com.mapt.db.UserDAO;
 import com.google.common.base.Optional;
 import com.codahale.metrics.annotation.Timed;
 
@@ -11,8 +10,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
-import org.jdbi.v3.core.Jdbi;
-
 import java.util.concurrent.atomic.AtomicLong;
 
 @Path("/hello")
@@ -21,13 +18,11 @@ public class HelloResource {
     private final String template;
     private final String defaultName;
     private final AtomicLong counter;
-    private final UserDAO userDAO;
 
-    public HelloResource(String template, String defaultName, UserDAO userDAO) {
+    public HelloResource(String template, String defaultName) {
         this.template = template;
         this.defaultName = defaultName;
         this.counter = new AtomicLong();
-        this.userDAO = userDAO;
     }
 
     @GET
