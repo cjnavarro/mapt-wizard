@@ -32,9 +32,8 @@ public class MaptApplication extends Application<MaptConfiguration> {
 
     	final JdbiFactory factory = new JdbiFactory();
     	final Jdbi jdbi = factory.build(environment, configuration.getDataSourceFactory(), "postgresql");
-    	jdbi.setSqlLogger(SqlLogger.logException());
     	
-    	 final UserDAO userDAO = jdbi.onDemand(UserDAO.class);
+    	final UserDAO userDAO = jdbi.onDemand(UserDAO.class);
     	
         final HelloResource resource = new HelloResource(
                 configuration.getTemplate(),
