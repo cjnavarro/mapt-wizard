@@ -13,7 +13,7 @@ database:
   driverClass: com.mysql.cj.jdbc.Driver
   url: jdbc:mysql://localhost:3306/maptdb?autoReconnect=true&useSSL=false&serverTimezone=UTC
   user: root
-  password: bmwF1200gsa!
+  password: beamerBoi
   maxWaitForConnection: 1s
   validationQuery: "SELECT 1"
   validationQueryTimeout: 3s
