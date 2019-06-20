@@ -1,37 +1,43 @@
 package com.mapt.core;
 
-import javax.persistence.Column;
+import java.security.Principal;
+
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.Entity;
-import org.hibernate.annotations.Immutable;
+import org.hibernate.annotations.NamedQueries;
 import org.hibernate.annotations.NamedQuery;
 
-@Immutable
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+@Entity
 @Table(name = "user")
-@NamedQuery(name = "User_findById", 
-query = "from User where id = :id")
-public class User {
+@NamedQueries({
+@NamedQuery(name = "com.mapt.core.User_findAll", query = "from User"),
+@NamedQuery(name = "com.mapt.core.User_findByName", query = "from User where firstname = :firstname and lastname = :lastname"),
+})
+public class User implements Principal {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long id;
 	
-	@Column(name = "firstname")
-	private String firstName;
+	private String firstname;
 	
-	@Column(name = "lastname")
-	private String lastName;
+	private String lastname;
+	
+	@JsonIgnore
+	private String password = "password";
 
 	public User() {
 	}
 
-	public User(String firstName, String lastName) {
-		this.firstName = firstName;
-		this.lastName = lastName;
+	public User(String firstname, String lastname) {
+		this.firstname = firstname;
+		this.lastname = lastname;
 	}
 
 	public Long getId() {
@@ -42,19 +48,32 @@ public class User {
 		this.id = id;
 	}
 
-	public String getFirstName() {
-		return firstName;
+	public String getFirstname() {
+		return firstname;
 	}
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
 	}
 
-	public String getLastName() {
-		return lastName;
+	public String getLastname() {
+		return lastname;
 	}
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
+	}
+
+	@Override
+	public String getName() {
+		return firstname + " " + lastname;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 }

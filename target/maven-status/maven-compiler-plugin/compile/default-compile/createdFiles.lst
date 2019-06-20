@@ -1,7 +1,8 @@
 com/mapt/MaptApplication.class
 com/mapt/core/User.class
+com/mapt/auth/MaptAuthenticator.class
 com/mapt/MaptConfiguration.class
+com/mapt/auth/MaptAuthorizer.class
 com/mapt/MaptApplication$1.class
-com/mapt/api/Hello.class
 com/mapt/resources/HelloResource.class
 com/mapt/db/UserDAO.class
