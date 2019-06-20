@@ -19,8 +19,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @NamedQuery(name = "com.mapt.core.User_findAll", query = "from User"),
 @NamedQuery(name = "com.mapt.core.User_findByName", query = "from User where firstname = :firstname and lastname = :lastname"),
 })
-public class User implements Principal {
-	
+public class User implements Principal
+{
 	@Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long id;
@@ -30,50 +30,60 @@ public class User implements Principal {
 	private String lastname;
 	
 	@JsonIgnore
-	private String password = "password";
+	private String password;
 
 	public User() {
 	}
 
-	public User(String firstname, String lastname) {
+	public User(String firstname, String lastname)
+	{
 		this.firstname = firstname;
 		this.lastname = lastname;
 	}
 
-	public Long getId() {
+	public Long getId()
+	{
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Long id)
+	{
 		this.id = id;
 	}
 
-	public String getFirstname() {
+	public String getFirstname()
+	{
 		return firstname;
 	}
 
-	public void setFirstname(String firstname) {
+	public void setFirstname(String firstname)
+	{
 		this.firstname = firstname;
 	}
 
-	public String getLastname() {
+	public String getLastname()
+	{
 		return lastname;
 	}
 
-	public void setLastname(String lastname) {
+	public void setLastname(String lastname)
+	{
 		this.lastname = lastname;
 	}
 
 	@Override
-	public String getName() {
+	public String getName()
+	{
 		return firstname + " " + lastname;
 	}
 
-	public String getPassword() {
+	public String getPassword()
+	{
 		return password;
 	}
 
-	public void setPassword(String password) {
+	public void setPassword(String password)
+	{
 		this.password = password;
 	}
 }

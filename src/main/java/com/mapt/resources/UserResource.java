@@ -8,6 +8,7 @@ import io.dropwizard.hibernate.UnitOfWork;
 import com.codahale.metrics.annotation.Timed;
 
 import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -16,20 +17,23 @@ import javax.ws.rs.core.MediaType;
 
 import java.util.List;
 
-@Path("/hello")
+@Path("/user")
 @Produces(MediaType.APPLICATION_JSON)
-public class HelloResource {
+public class UserResource
+{
     private UserDAO userDAO;
 
-    public HelloResource(UserDAO userDAO) {
+    public UserResource(UserDAO userDAO)
+    {
         this.userDAO = userDAO;
     }
 
     @GET
     @Timed
     @UnitOfWork 
-    @PermitAll
-    public User sayHello(@QueryParam("id") Long id) {
+    @RolesAllowed("ADMIN")
+    public User getUserById(@QueryParam("id") Long id)
+    {
         return userDAO.findById(id);
     }
     
@@ -37,8 +41,9 @@ public class HelloResource {
     @Timed
     @UnitOfWork 
     @Path("/all")
-    @PermitAll
-    public List<User> sayHello() {
+    @RolesAllowed("ADMIN")
+    public List<User> getAllUsers()
+    {
         return userDAO.findAll();
     }
 }

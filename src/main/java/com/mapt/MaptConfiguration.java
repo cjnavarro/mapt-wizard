@@ -10,8 +10,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
-public class MaptConfiguration extends Configuration implements AssetsBundleConfiguration {
-    
+public class MaptConfiguration extends Configuration implements AssetsBundleConfiguration
+{
     @Valid
     @NotNull
     @JsonProperty
@@ -23,11 +23,13 @@ public class MaptConfiguration extends Configuration implements AssetsBundleConf
     private DataSourceFactory database = new DataSourceFactory();
     
     @Override
-    public AssetsConfiguration getAssetsConfiguration() {
+    public AssetsConfiguration getAssetsConfiguration()
+    {
     	return assets;
     }
     
-    public DataSourceFactory getDataSourceFactory() {
+    public DataSourceFactory getDataSourceFactory()
+    {
         return database;
     }
 }
