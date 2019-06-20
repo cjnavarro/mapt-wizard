@@ -46,4 +46,14 @@ public class UserResource
     {
         return userDAO.findAll();
     }
+    
+    @GET
+    @Timed
+    @Path("/auth")
+    @PermitAll
+    public void checkAuth()
+    {
+    	// NOOP
+    	return;
+    }
 }
