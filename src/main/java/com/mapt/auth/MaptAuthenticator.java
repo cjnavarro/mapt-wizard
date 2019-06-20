@@ -37,7 +37,7 @@ public class MaptAuthenticator implements Authenticator<BasicCredentials, User>
 		
         if (pw.equals(credentials.getPassword()))
         {
-            return Optional.of(dao.findById(1L));
+            return Optional.of(user);
         }
         
         return Optional.empty();

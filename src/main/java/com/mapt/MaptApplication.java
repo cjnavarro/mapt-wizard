@@ -9,6 +9,7 @@ import com.mapt.db.UserDAO;
 import com.mapt.resources.UserResource;
 import io.dropwizard.Application;
 import io.dropwizard.auth.AuthDynamicFeature;
+import io.dropwizard.auth.AuthValueFactoryProvider;
 import io.dropwizard.auth.basic.BasicCredentialAuthFilter;
 import io.dropwizard.bundles.assets.ConfiguredAssetsBundle;
 import io.dropwizard.db.DataSourceFactory;
@@ -56,10 +57,11 @@ public class MaptApplication extends Application<MaptConfiguration>
                 new BasicCredentialAuthFilter.Builder<User>()
                     .setAuthenticator(proxyAuth)
                     .setAuthorizer(new MaptAuthorizer())
-                    .setRealm("REALM")
+                    .setRealm("mapt")
                     .buildAuthFilter()));
         
         environment.jersey().register(RolesAllowedDynamicFeature.class);
+        //environment.jersey().register(new AuthValueFactoryProvider.Binder<>(User.class));
         
         environment.jersey().setUrlPattern("/api/*");
         environment.jersey().register(resource);
