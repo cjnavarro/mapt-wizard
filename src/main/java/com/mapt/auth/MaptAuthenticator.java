@@ -22,11 +22,7 @@ public class MaptAuthenticator implements Authenticator<BasicCredentials, User>
 	@UnitOfWork
     public Optional<User> authenticate(BasicCredentials credentials) throws AuthenticationException
 	{
-		String[] name = credentials.getUsername().split(" ");
-		
-		System.out.println(name[0] + " " + name[1]);
-		
-		User user = dao.findByName(name[0], name[1]);
+		User user = dao.findByName(credentials.getUsername().toLowerCase());
 		
 		if(user == null)
 		{

@@ -12,7 +12,7 @@ public class MaptAuthorizer implements Authorizer<User>
     @Override
     public boolean authorize(User user, String role)
     {
-        return (user.getName().equals("Chris Navarro") && role.equals("ADMIN")) 
+        return (user.getId() == 1 && role.equals("ADMIN")) 
         		|| (user !=null && !role.equals("ADMIN"));
     }
 }

@@ -17,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name = "user")
 @NamedQueries({
 @NamedQuery(name = "com.mapt.core.User_findAll", query = "from User"),
-@NamedQuery(name = "com.mapt.core.User_findByName", query = "from User where firstname = :firstname and lastname = :lastname"),
+@NamedQuery(name = "com.mapt.core.User_findByName", query = "from User where username = :username"),
 })
 public class User implements Principal
 {
@@ -25,9 +25,7 @@ public class User implements Principal
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long id;
 	
-	private String firstname;
-	
-	private String lastname;
+	private String username;
 	
 	@JsonIgnore
 	private String password;
@@ -35,10 +33,9 @@ public class User implements Principal
 	public User() {
 	}
 
-	public User(String firstname, String lastname)
+	public User(String username)
 	{
-		this.firstname = firstname;
-		this.lastname = lastname;
+		this.username = username;
 	}
 
 	public Long getId()
@@ -51,30 +48,20 @@ public class User implements Principal
 		this.id = id;
 	}
 
-	public String getFirstname()
+	public String getUsername()
 	{
-		return firstname;
+		return username;
 	}
 
-	public void setFirstname(String firstname)
+	public void setUsername(String username)
 	{
-		this.firstname = firstname;
-	}
-
-	public String getLastname()
-	{
-		return lastname;
-	}
-
-	public void setLastname(String lastname)
-	{
-		this.lastname = lastname;
+		this.username = username;
 	}
 
 	@Override
 	public String getName()
 	{
-		return firstname + " " + lastname;
+		return username;
 	}
 
 	public String getPassword()

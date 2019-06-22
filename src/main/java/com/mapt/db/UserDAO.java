@@ -34,12 +34,11 @@ public class UserDAO extends AbstractDAO<User>
     }
     
     @SuppressWarnings("unchecked")
-	public User findByName(String firstname, String lastname)
+	public User findByName(String username)
     {
         return uniqueResult(
         		namedQuery("com.mapt.core.User_findByName")
-        		.setParameter("firstname", firstname)
-        		.setParameter("lastname", lastname)
+        		.setParameter("username", username)
         		);
     }
 }
