@@ -1,6 +1,10 @@
 package com.mapt.auth;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Optional;
+
+import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
 
 import com.mapt.core.User;
 import com.mapt.db.UserDAO;
@@ -23,19 +27,42 @@ public class MaptAuthenticator implements Authenticator<BasicCredentials, User>
     public Optional<User> authenticate(BasicCredentials credentials) throws AuthenticationException
 	{
 		User user = dao.findByName(credentials.getUsername().toLowerCase());
-		
+	
 		if(user == null)
 		{
 			return Optional.empty();
 		}
 		
-		String pw = user.getPassword();
-		
-        if (pw.equals(credentials.getPassword()))
-        {
-            return Optional.of(user);
-        }
+		try
+		{
+			String password = toSHA1(credentials.getPassword().getBytes());
+			
+	        if (user.getPassword().equals(password))
+	        {
+	            return Optional.of(user);
+	        }
+		}
+		catch(Exception e)
+		{
+			//TODO logging
+			e.printStackTrace();
+		}
         
         return Optional.empty();
     }
+	
+	private static String toSHA1(byte[] convertme)
+	{
+	    MessageDigest md = null;
+	    try
+	    {
+	        md = MessageDigest.getInstance("MD5");
+	    }
+	    catch(NoSuchAlgorithmException e)
+	    {
+	        e.printStackTrace();
+	    } 
+	    
+	    return (new HexBinaryAdapter()).marshal(md.digest(convertme));
+	}
 }
