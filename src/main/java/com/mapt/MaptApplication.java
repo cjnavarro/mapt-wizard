@@ -58,6 +58,7 @@ public class MaptApplication extends Application<MaptConfiguration>
                     .setAuthenticator(proxyAuth)
                     .setAuthorizer(new MaptAuthorizer())
                     .setRealm("mapt")
+                    .setPrefix("PumpkinSpice") // So Basic
                     .buildAuthFilter()));
         
         environment.jersey().register(RolesAllowedDynamicFeature.class);
