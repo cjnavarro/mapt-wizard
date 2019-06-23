@@ -1,8 +1,0 @@
-com/mapt/core/User.class
-com/mapt/MaptConfiguration.class
-com/mapt/resources/UserResource.class
-com/mapt/MaptApplication.class
-com/mapt/auth/MaptAuthenticator.class
-com/mapt/db/UserDAO.class
-com/mapt/auth/MaptAuthorizer.class
-com/mapt/MaptApplication$1.class
