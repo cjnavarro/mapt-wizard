@@ -42,7 +42,7 @@ public class MaptApplication extends Application<MaptConfiguration>
     @Override
     public void initialize(final Bootstrap<MaptConfiguration> bootstrap)
     {
-    	bootstrap.addBundle(new ConfiguredAssetsBundle("/assets/*", "/", "index.html"));
+    	bootstrap.addBundle(new ConfiguredAssetsBundle("/build/*", "/", "index.html"));
     	bootstrap.addBundle(hibernate);
     }
 
