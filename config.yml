@@ -4,7 +4,7 @@ logging:
     com.mapt: DEBUG
 assets:
   mappings:
-    /assets: /
+    /build: /
   overrides:
     /: /mapt/build
 server:
