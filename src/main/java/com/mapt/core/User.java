@@ -29,9 +29,10 @@ public class User implements Principal
 	
 	@JsonIgnore
 	private String password;
+	
+	private UserRole role = UserRole.DEFAULT;
 
-	public User() {
-	}
+	public User() {}
 
 	public User(String username)
 	{
@@ -72,5 +73,15 @@ public class User implements Principal
 	public void setPassword(String password)
 	{
 		this.password = password;
+	}
+
+	public UserRole getRole()
+	{
+		return role;
+	}
+
+	public void setRole(UserRole role)
+	{
+		this.role = role;
 	}
 }
