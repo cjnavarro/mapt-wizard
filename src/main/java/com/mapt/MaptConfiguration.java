@@ -22,6 +22,18 @@ public class MaptConfiguration extends Configuration implements AssetsBundleConf
     @JsonProperty("database")
     private DataSourceFactory database = new DataSourceFactory();
     
+    @Valid
+    @NotNull
+    private String awsAccessKey = "";
+    
+    @Valid
+    @NotNull
+    private String awsSecretKey = "";
+    
+    @Valid
+    @NotNull
+    private String topicArn = "";
+    
     @Override
     public AssetsConfiguration getAssetsConfiguration()
     {
@@ -31,5 +43,20 @@ public class MaptConfiguration extends Configuration implements AssetsBundleConf
     public DataSourceFactory getDataSourceFactory()
     {
         return database;
+    }
+    
+    public String getAwsAccessKey()
+    {
+        return awsAccessKey;
+    }
+    
+    public String getAwsSecretKey()
+    {
+        return awsSecretKey;
+    }
+    
+    public String getTopicArn()
+    {
+        return awsSecretKey;
     }
 }

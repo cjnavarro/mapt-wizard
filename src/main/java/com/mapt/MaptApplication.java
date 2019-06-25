@@ -2,8 +2,10 @@ package com.mapt;
 
 import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
 
+import com.hubspot.dropwizard.guice.GuiceBundle;
 import com.mapt.auth.MaptAuthenticator;
 import com.mapt.auth.MaptAuthorizer;
+import com.mapt.aws.AWSModule;
 import com.mapt.core.User;
 import com.mapt.db.UserDAO;
 import com.mapt.resources.UserResource;
@@ -42,6 +44,14 @@ public class MaptApplication extends Application<MaptConfiguration>
     @Override
     public void initialize(final Bootstrap<MaptConfiguration> bootstrap)
     {
+    	GuiceBundle<MaptConfiguration> awsBundle = GuiceBundle.<MaptConfiguration>newBuilder()
+                .addModule(new AWSModule())
+                .setConfigClass(MaptConfiguration.class)
+                .enableAutoConfig(getClass().getPackage().getName())
+                .build();
+    	
+        bootstrap.addBundle(awsBundle);
+    	
     	bootstrap.addBundle(new ConfiguredAssetsBundle("/build/*", "/", "index.html"));
     	bootstrap.addBundle(hibernate);
     }

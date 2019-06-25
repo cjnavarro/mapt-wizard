@@ -57,6 +57,21 @@
 		    <artifactId>dropwizard-hibernate</artifactId>
 		    <version>${dropwizard.version}</version>
 		</dependency>
+        <dependency>
+            <groupId>com.hubspot.dropwizard</groupId>
+            <artifactId>dropwizard-guice</artifactId>
+            <version>1.3.5.0</version>
+        </dependency>
+        <dependency>
+		    <groupId>com.google.inject</groupId>
+		    <artifactId>guice</artifactId>
+		    <version>4.2.2</version>
+		</dependency>
+		<dependency>
+		    <groupId>com.amazonaws</groupId>
+		    <artifactId>aws-java-sdk-sns</artifactId>
+		    <version>1.11.579</version>
+		</dependency>
 		<dependency>
 		    <groupId>javax.xml.bind</groupId>
 		    <artifactId>jaxb-api</artifactId>
