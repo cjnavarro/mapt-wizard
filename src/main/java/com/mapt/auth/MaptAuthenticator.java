@@ -24,12 +24,6 @@ public class MaptAuthenticator implements Authenticator<BasicCredentials, User>
 {
 	private UserDAO dao;
 	
-	@Inject
-	private AmazonSNS awsSNS;
-	
-	@Inject
-	private String topicArn;
-	
 	public MaptAuthenticator(UserDAO dao)
 	{
 		this.dao = dao;

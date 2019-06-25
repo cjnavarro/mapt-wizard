@@ -5,13 +5,13 @@ import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
 import com.hubspot.dropwizard.guice.GuiceBundle;
 import com.mapt.auth.MaptAuthenticator;
 import com.mapt.auth.MaptAuthorizer;
-import com.mapt.aws.AWSModule;
 import com.mapt.core.User;
 import com.mapt.db.UserDAO;
+import com.mapt.modules.AWSModule;
+import com.mapt.modules.DAOModule;
 import com.mapt.resources.UserResource;
 import io.dropwizard.Application;
 import io.dropwizard.auth.AuthDynamicFeature;
-import io.dropwizard.auth.AuthValueFactoryProvider;
 import io.dropwizard.auth.basic.BasicCredentialAuthFilter;
 import io.dropwizard.bundles.assets.ConfiguredAssetsBundle;
 import io.dropwizard.db.DataSourceFactory;
@@ -45,7 +45,7 @@ public class MaptApplication extends Application<MaptConfiguration>
     public void initialize(final Bootstrap<MaptConfiguration> bootstrap)
     {
     	GuiceBundle<MaptConfiguration> awsBundle = GuiceBundle.<MaptConfiguration>newBuilder()
-                .addModule(new AWSModule())
+                .addModules(new AWSModule(), new DAOModule())
                 .setConfigClass(MaptConfiguration.class)
                 .enableAutoConfig(getClass().getPackage().getName())
                 .build();
