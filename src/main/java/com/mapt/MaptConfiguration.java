@@ -32,12 +32,6 @@ public class MaptConfiguration extends Configuration implements AssetsBundleConf
     @JsonProperty
     private String awsSecretKey = "";
     
-    @Valid
-    @NotNull
-    @JsonProperty
-    private String topicArn = "";
-    
-    
     @Override
     public AssetsConfiguration getAssetsConfiguration()
     {
@@ -55,11 +49,6 @@ public class MaptConfiguration extends Configuration implements AssetsBundleConf
     }
     
     public String getAwsSecretKey()
-    {
-        return awsSecretKey;
-    }
-    
-    public String getTopicArn()
     {
         return awsSecretKey;
     }

@@ -9,7 +9,6 @@ import com.mapt.db.UserDAO;
 import com.mapt.resources.UserResource;
 import io.dropwizard.Application;
 import io.dropwizard.auth.AuthDynamicFeature;
-import io.dropwizard.auth.AuthValueFactoryProvider;
 import io.dropwizard.auth.basic.BasicCredentialAuthFilter;
 import io.dropwizard.bundles.assets.ConfiguredAssetsBundle;
 import io.dropwizard.db.DataSourceFactory;
@@ -56,7 +55,6 @@ public class MaptApplication extends Application<MaptConfiguration>
     	System.setProperty("aws.secretKey", configuration.getAwsSecretKey());
         
         final MaptAuthenticator proxyAuth = new UnitOfWorkAwareProxyFactory(hibernate).create(MaptAuthenticator.class, UserDAO.class, dao);
-        proxyAuth.setAwsSettings(configuration.getTopicArn());
         
         environment.jersey().register(new AuthDynamicFeature(
                 new BasicCredentialAuthFilter.Builder<User>()
@@ -67,8 +65,7 @@ public class MaptApplication extends Application<MaptConfiguration>
                     .buildAuthFilter()));
         
         environment.jersey().register(RolesAllowedDynamicFeature.class);
-        //environment.jersey().register(new AuthValueFactoryProvider.Binder<>(User.class));
-        
+  
         environment.jersey().setUrlPattern("/api/*");
         environment.jersey().register(resource);
     }

@@ -5,6 +5,7 @@ import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Optional;
+import java.util.TimeZone;
 
 import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
 
@@ -22,8 +23,6 @@ import io.dropwizard.hibernate.UnitOfWork;
 public class MaptAuthenticator implements Authenticator<BasicCredentials, User>
 {
 	private UserDAO dao;
-	
-	private String topicArn;
 	
 	public MaptAuthenticator(UserDAO dao)
 	{
@@ -46,10 +45,19 @@ public class MaptAuthenticator implements Authenticator<BasicCredentials, User>
 			String password = toSHA1(credentials.getPassword().getBytes());
 			
 	        if (user.getPassword().equals(password))
-	        {
+	        {	
 	        	if(user.getRole() == UserRole.VIP)
 	        	{
-	        		publishToMe(user.getUsername());
+	        		long oneHour = 1000 * 60 * 60;
+	        		Date current = new Date();
+	        		
+	        		if(user.getSns() == null || ((current.getTime() - oneHour) > user.getSns().getTime()))
+	        		{
+	        			publishToMe(user.getUsername());
+	        			user.setSns(current);
+	        			
+	        			dao.create(user);
+	        		}
 	        	}
 	        	
 	            return Optional.of(user);
@@ -78,33 +86,26 @@ public class MaptAuthenticator implements Authenticator<BasicCredentials, User>
 	    
 	    return (new HexBinaryAdapter()).marshal(md.digest(convertme));
 	}
-
-	public void setAwsSettings(String topicArn)
-	{
-		this.topicArn = topicArn;
-	}
 	
 	private void publishToMe(String username)
 	{
-//		try
-//		{
+		try
+		{
 			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			String message = simpleDateFormat.format(new Date()) + username;
+			simpleDateFormat.setTimeZone(TimeZone.getTimeZone("EST"));
 			
+			String message = simpleDateFormat.format(new Date()) + username;
+
 			PublishRequest request = new PublishRequest();
 			request.setMessage(message);
-			request.setTopicArn(this.topicArn);
 			request.setPhoneNumber("+1 603 393 9047");
-			
+
 			AmazonSNS client = AmazonSNSClient.builder()
-	    			.withRegion("us-east-1")
-	                .build();
-			
+					.withRegion("us-east-1")
+					.build();
+
 			client.publish(request);
-//		}
-//		catch(Exception e)
-//		{
-//			
-//		}
+		}
+		catch(Exception e) {}
 	}
 }

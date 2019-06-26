@@ -1,6 +1,7 @@
 package com.mapt.core;
 
 import java.security.Principal;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -31,6 +32,8 @@ public class User implements Principal
 	private String password;
 	
 	private UserRole role = UserRole.DEFAULT;
+	
+	private Date sns = null;
 
 	public User() {}
 
@@ -83,5 +86,15 @@ public class User implements Principal
 	public void setRole(UserRole role)
 	{
 		this.role = role;
+	}
+	
+	public Date getSns()
+	{
+		return sns;
+	}
+
+	public void setSns(Date sns)
+	{
+		this.sns = sns;
 	}
 }
