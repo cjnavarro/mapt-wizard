@@ -24,7 +24,7 @@ public class UserDAO extends AbstractDAO<User>
 
     public long create(User user)
     {
-        return persist(person).getId();
+        return persist(user).getId();
     }
 
     @SuppressWarnings("unchecked")
