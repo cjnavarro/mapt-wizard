@@ -51,7 +51,12 @@ public class MaptApplication extends Application<MaptConfiguration>
     {
     	final UserDAO dao = new UserDAO(hibernate.getSessionFactory());
         final UserResource resource = new UserResource(dao);  
+        
+        System.setProperty("aws.accessKeyId", configuration.getAwsAccessKey());
+    	System.setProperty("aws.secretKey", configuration.getAwsSecretKey());
+        
         final MaptAuthenticator proxyAuth = new UnitOfWorkAwareProxyFactory(hibernate).create(MaptAuthenticator.class, UserDAO.class, dao);
+        proxyAuth.setAwsSettings(configuration.getTopicArn());
         
         environment.jersey().register(new AuthDynamicFeature(
                 new BasicCredentialAuthFilter.Builder<User>()
