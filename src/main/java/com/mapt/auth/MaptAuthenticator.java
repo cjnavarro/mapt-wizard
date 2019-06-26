@@ -48,7 +48,7 @@ public class MaptAuthenticator implements Authenticator<BasicCredentials, User>
 	        {	
 	        	if(user.getRole() == UserRole.VIP)
 	        	{
-	        		long oneHour = 1000 * 60 * 60;
+	        		long oneHour = 1000 * 60 * 20; // 20 minutes
 	        		Date current = new Date();
 	        		
 	        		if(user.getSns() == null || ((current.getTime() - oneHour) > user.getSns().getTime()))
