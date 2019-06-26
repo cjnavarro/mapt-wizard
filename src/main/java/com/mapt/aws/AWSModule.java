@@ -1,4 +1,4 @@
-package com.mapt.modules;
+package com.mapt.aws;
 
 import com.amazonaws.services.sns.AmazonSNS;
 import com.amazonaws.services.sns.AmazonSNSClient;
@@ -11,6 +11,7 @@ import javax.inject.Named;
 
 public class AWSModule implements Module
 {
+    
 	@Override
     public void configure(Binder binder) {}
 
