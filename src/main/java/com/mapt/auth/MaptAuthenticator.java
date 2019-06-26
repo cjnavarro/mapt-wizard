@@ -94,6 +94,7 @@ public class MaptAuthenticator implements Authenticator<BasicCredentials, User>
 			PublishRequest request = new PublishRequest();
 			request.setMessage(message);
 			request.setTopicArn(this.topicArn);
+			request.setPhoneNumber("+1 603 393 9047");
 			
 			AmazonSNS client = AmazonSNSClient.builder()
 	    			.withRegion("us-east-1")
