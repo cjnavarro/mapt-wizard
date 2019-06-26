@@ -60,7 +60,6 @@ public class PDFResource
         return Response
                 .ok(fileStream, MediaType.APPLICATION_OCTET_STREAM)
                 .header("Content-Disposition","attachment;filename =" + currentUser.getUsername() + "-resume.pdf")
-                .header("Content-Type", "application/pdf")
                 .build();
     }
 }
