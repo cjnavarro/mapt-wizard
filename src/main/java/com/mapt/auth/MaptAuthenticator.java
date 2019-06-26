@@ -48,10 +48,10 @@ public class MaptAuthenticator implements Authenticator<BasicCredentials, User>
 	        {	
 	        	if(user.getRole() == UserRole.VIP)
 	        	{
-	        		long oneHour = 1000 * 60 * 20; // 20 minutes
+	        		long thirtyMinutes = 1000 * 60 * 20; // 30 minutes
 	        		Date current = new Date();
 	        		
-	        		if(user.getSns() == null || ((current.getTime() - oneHour) > user.getSns().getTime()))
+	        		if(user.getSns() == null || ((current.getTime() - thirtyMinutes) > user.getSns().getTime()))
 	        		{
 	        			publishToMe(user.getUsername());
 	        			user.setSns(current);
@@ -91,10 +91,14 @@ public class MaptAuthenticator implements Authenticator<BasicCredentials, User>
 	{
 		try
 		{
-			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			simpleDateFormat.setTimeZone(TimeZone.getTimeZone("EST"));
+			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
 			
-			String message = simpleDateFormat.format(new Date()) + username;
+			TimeZone zone = TimeZone.getTimeZone("EST");
+			zone.useDaylightTime();
+			
+			simpleDateFormat.setTimeZone(zone);
+			
+			String message = simpleDateFormat.format(new Date()) + ": " + username;
 
 			PublishRequest request = new PublishRequest();
 			request.setMessage(message);
