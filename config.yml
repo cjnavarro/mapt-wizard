@@ -26,3 +26,5 @@ database:
   checkConnectionWhileIdle: false
   evictionInterval: 10s
   minIdleTime: 1 minute
+awsAccessKey: blah
+awsSecretKey: blah
