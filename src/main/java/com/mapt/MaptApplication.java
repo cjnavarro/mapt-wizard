@@ -6,6 +6,7 @@ import com.mapt.auth.MaptAuthenticator;
 import com.mapt.auth.MaptAuthorizer;
 import com.mapt.core.User;
 import com.mapt.db.UserDAO;
+import com.mapt.resources.PDFResource;
 import com.mapt.resources.UserResource;
 import io.dropwizard.Application;
 import io.dropwizard.auth.AuthDynamicFeature;
@@ -49,7 +50,8 @@ public class MaptApplication extends Application<MaptConfiguration>
     public void run(final MaptConfiguration configuration, final Environment environment)
     {
     	final UserDAO dao = new UserDAO(hibernate.getSessionFactory());
-        final UserResource resource = new UserResource(dao);  
+        final UserResource userResource = new UserResource(dao);
+        final PDFResource pdfResource = new PDFResource(configuration.getPdfPath());  
         
         System.setProperty("aws.accessKeyId", configuration.getAwsAccessKey());
     	System.setProperty("aws.secretKey", configuration.getAwsSecretKey());
@@ -67,7 +69,8 @@ public class MaptApplication extends Application<MaptConfiguration>
         environment.jersey().register(RolesAllowedDynamicFeature.class);
   
         environment.jersey().setUrlPattern("/api/*");
-        environment.jersey().register(resource);
+        environment.jersey().register(userResource);
+        environment.jersey().register(pdfResource);
     }
 
 }

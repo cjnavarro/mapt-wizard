@@ -32,6 +32,11 @@ public class MaptConfiguration extends Configuration implements AssetsBundleConf
     @JsonProperty
     private String awsSecretKey = "";
     
+    @Valid
+    @NotNull
+    @JsonProperty
+    private String pdfPath = "";
+    
     @Override
     public AssetsConfiguration getAssetsConfiguration()
     {
@@ -51,5 +56,10 @@ public class MaptConfiguration extends Configuration implements AssetsBundleConf
     public String getAwsSecretKey()
     {
         return awsSecretKey;
+    }
+    
+    public String getPdfPath()
+    {
+        return pdfPath;
     }
 }

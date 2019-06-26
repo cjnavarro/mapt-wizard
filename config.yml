@@ -28,3 +28,4 @@ database:
   minIdleTime: 1 minute
 awsAccessKey: blah
 awsSecretKey: blah
+pdfPath: /my/path
