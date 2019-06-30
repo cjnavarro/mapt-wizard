@@ -49,7 +49,7 @@ public class PDFResource
             @Override
             public void write(java.io.OutputStream output) throws IOException
             {
-                    File pdf = new File(pdfPath);
+                    File pdf = new File(pdfPath + currentUser.getUsername() + "-resume.pdf");
                     byte[] data = Files.readAllBytes(pdf.toPath());
                     
                     output.write(data);
