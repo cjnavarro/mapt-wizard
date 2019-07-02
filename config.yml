@@ -1,7 +1,11 @@
 logging:
   level: INFO
-  loggers:
-    com.mapt: DEBUG
+  appenders:
+   - type: file
+     currentLogFilename: ./mapt.log
+     archivedLogFilenamePattern: ./logs/mapt-%d.log.gz
+     archivedFileCount: 5
+     timeZone: UTC
 assets:
   mappings:
     /build: /
